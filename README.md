@@ -17,17 +17,16 @@ Explicit ratio supervision does not reliably improve ratio agreement over a stro
 
 ```
 .
-├── data/               # dataset download / preprocessing scripts
-├── pseudo_labels/       # rule-based HSV pseudo-label generation for AML-Cytomorphology_LMU
-├── models/             # Attention U-Net / plain U-Net backbones, ratio-consistency loss, RFG module
-├── train.py            # training entry point (Phase I: WBCAtt+, Phase II: AML transfer)
-├── evaluate.py          # Dice, ratio error, boundary F1, entropy, Bland-Altman, ICC(A,1)
-├── configs/             # ablation configuration files (baseline / ratio-only / RFG-only / full)
-├── notebooks/           # exploratory analysis and figure generation
-└── results/             # saved metrics and figures reported in the paper
+├── AML_Phase_I.ipynb    # Phase I: WBCAtt+ ablation (Attention U-Net vs plain U-Net, ratio loss + RFG)
+├── AML_Phase_II.ipynb   # Phase II: AML-Cytomorphology_LMU transfer + target-domain RFG ablation
+├── requirements.txt
+├── README.md
+└── LICENSE
 ```
 
-> Adjust the tree above to match this repo's actual layout before publishing — it's a placeholder based on the paper's described pipeline, not a scan of real files.
+Each notebook is self-contained (Colab-style): environment setup, data loading, model/loss definitions, training, and evaluation all live in one file, organized into sequential sections (`AML_Phase_I.ipynb`: Phase-A setup/data → Phase-B dataset/augmentation → Phase-C model/losses → Phase-D training → Phase-F evaluation and statistics). `AML_Phase_II.ipynb` reuses the same model and loss definitions from Phase I.
+
+**Before running:** both notebooks mount Google Drive and will prompt you to enter your project folder path (e.g. `/content/drive/MyDrive/AML_segmentation_project`, with `data/`, `checkpoints/`, and `logs/` subfolders) — no need to edit the code. Datasets and trained checkpoints are hosted on Drive, not in this repository (see Datasets below for the public sources).
 
 ## Datasets
 
@@ -38,20 +37,20 @@ Explicit ratio supervision does not reliably improve ratio agreement over a stro
 
 ## Requirements
 
-- Python 3.11
-- PyTorch
+Both notebooks were run on Google Colab, which ships with PyTorch, OpenCV, scikit-image, SciPy, and pandas preinstalled; the notebooks additionally install:
+
 - segmentation-models-pytorch
-- Albumentations
-- OpenCV
-- scikit-image
-- SciPy
-- pandas
-- statsmodels
+- albumentations
+- huggingface_hub
 - pingouin (for ICC computation)
+
+To run outside Colab, install the full stack:
 
 ```bash
 pip install -r requirements.txt
 ```
+
+with `requirements.txt` containing at minimum: `torch`, `segmentation-models-pytorch`, `albumentations`, `huggingface_hub`, `opencv-python`, `scikit-image`, `scipy`, `pandas`, `statsmodels`, `pingouin`.
 
 ## Method summary
 

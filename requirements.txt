@@ -1,0 +1,10 @@
+torch
+segmentation-models-pytorch
+albumentations
+huggingface_hub
+opencv-python
+scikit-image
+scipy
+pandas
+statsmodels
+pingouin
