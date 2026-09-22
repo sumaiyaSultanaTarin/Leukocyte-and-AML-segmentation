@@ -79,13 +79,6 @@ If you use this code, please cite:
   year    = {2026}
 }
 ```
-
-> Update with the final journal/venue, volume, and DOI once assigned.
-
-## License
-
-Add a license file (e.g., MIT) appropriate for your submission's data/code-sharing requirements.
-
 ## Contact
 
 MD Iftekharul Mobin — iftekhar.mobin@aiub.edu
